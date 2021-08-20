@@ -53,7 +53,7 @@ UI and URL are in sync
 ## Installation
 
 Clone the repository, change directories, and use NPM to install the dependencies.
-- Clone / Download this repo.
+- Clone / Download this repo. [https://github.com/jkinathan/reactnd-project-myreads-starter.git](https://github.com/jkinathan/reactnd-project-myreads-starter.git)
 - Run `npm install` or `yarn install` in the project directory to install dependencies.
 
 ## Start
