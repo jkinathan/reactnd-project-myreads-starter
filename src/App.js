@@ -8,9 +8,7 @@ class BooksApp extends React.Component {
   state = {
 
     books: [],
-    query: [],
-    
-    
+     
   }
 
 
@@ -28,52 +26,48 @@ class BooksApp extends React.Component {
 
   bookChange =(shelf,book)=> {
 
-    BooksAPI.update(book,shelf)
-    .then((response)=>{
-      this.setState(()=>({
-        books: Object.values(response)
-      }))
-      window.location.reload()
-    console.log("shelfs",this.state.books)
-    })
-  }
-
-  updateQuery = (quer)=>{
-    BooksAPI.search(quer)
-    .then((response)=>{
-      if (response != null) {
-        this.setState(()=>({
-          query: Object.values(response)
-        }))
-      }
-      else{
-        this.setState({
-          query: []
+    BooksAPI.update(book, shelf)
+    .then(booksresponse => {
+      
+      if(book.shelf === 'none' && shelf !== 'none'){
+        this.setState(state => {
+          const newBooks = state.books.concat(book);
+          return {books: newBooks}
         })
       }
-      
-      console.log("my Query",this.state.query)
-    })
-    
-  }
-  
 
+      const newUpdateBook = this.state.books.map(chgeShelfbook => {
+        
+        if (chgeShelfbook.id === book.id) {
+          chgeShelfbook.shelf = shelf
+        }
+        return chgeShelfbook;
+      });
+
+      this.setState({
+        books: newUpdateBook,
+      });
+      
+        
+        if(shelf === 'none'){
+          this.setState(state=>{
+            const newBooks = state.books.filter(remBook => remBook.id !== book.id);
+            return {books: newBooks}
+          })
+        }
+    });
+  }
+
+  
   render() {
 
-    const { query } = this.state
-
-    // const showingBooks = query === ''
-    // ? books
-    // : books.filter((ser) => (
-    //   ser.title.toLowerCase().includes(query.toLowerCase()) 
-    //   || ser.authors.includes(query.toLowerCase())
-    // ))
+    
 
     return (
       <div className="app">
         
         <Route exact path="/search" render={()=>(
-            <SearchBook books={this.state.books} thequery={query} updateQuery={this.updateQuery} changeBook={this.bookChange}/>
+            <SearchBook books={this.state.books} changeBook={this.bookChange}/>
 
         )}/>
 
