@@ -1,4 +1,4 @@
-# MyReads: A Book Tracking Web App Built 
+# MyReads: A Book Tracking Web App
 MyReads web app is created using React.js as a part of my Udacity's React Nanodegree program
 
 ## About
